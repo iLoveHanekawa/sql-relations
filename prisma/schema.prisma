@@ -11,12 +11,12 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id      Int      @id @default(autoincrement())
   profile Profile?
 }
 
 model Profile {
-  id Int @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id])
-  userId Int @unique
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique
 }
