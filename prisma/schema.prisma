@@ -11,6 +11,12 @@ datasource db {
 }
 
 model User {
-  id String @id @default(cuid())
-  name String
+  id Int @id @default(autoincrement())
+  profile Profile?
+}
+
+model Profile {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  userId Int @unique
 }
