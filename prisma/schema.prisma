@@ -10,13 +10,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//one-to-one
+
 model User {
   id      Int      @id @default(autoincrement())
-  profile Profile?
+  profile Profile? // has to be optional 
 }
 
 model Profile {
   id     Int  @id @default(autoincrement())
-  user   User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id]) //these can be optional 
   userId Int  @unique
+}
+
+//one-to-many
+
+model Author {
+  id Int @id @default(autoincrement())
+  posts Post[]
+}
+
+model Post {
+  id Int @id @default(autoincrement())
+  author Author @relation(fields: [authorId], references: [id]) //either both optional or both required
+  authorId Int
 }
