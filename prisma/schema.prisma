@@ -26,12 +26,33 @@ model Profile {
 //one-to-many
 
 model Author {
-  id Int @id @default(autoincrement())
-  posts Post[]
+  id    Int    @id @default(autoincrement())
+  posts Post[] // has to be required
 }
 
 model Post {
-  id Int @id @default(autoincrement())
-  author Author @relation(fields: [authorId], references: [id]) //either both optional or both required
+  id       Int    @id @default(autoincrement())
+  author   Author @relation(fields: [authorId], references: [id]) //either both optional or both required
   authorId Int
+}
+
+model Employee {
+  id       Int                  @id @default(autoincrement())
+  name     String
+  projects ProjectsOnEmployee[]
+}
+
+model Project {
+  id        Int                  @id @default(autoincrement())
+  name      String
+  employees ProjectsOnEmployee[]
+}
+
+model ProjectsOnEmployee {
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  employeeId Int
+  project    Project  @relation(fields: [projectId], references: [id])
+  projectId  Int
+
+  @@id([employeeId, projectId])
 }
