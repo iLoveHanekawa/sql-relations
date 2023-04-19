@@ -36,7 +36,7 @@ model Post {
   authorId Int
 }
 
-//many to many
+//explicit many to many
 
 model Employee {
   id       Int                  @id @default(autoincrement())
@@ -59,6 +59,8 @@ model ProjectsOnEmployee {
   @@id([employeeId, projectId])
 }
 
+//implicit many to many
+
 model Movie {
   id     Int     @id @default(autoincrement())
   name   String
@@ -69,4 +71,14 @@ model Actor {
   id     Int     @id @default(autoincrement())
   name   String
   movies Movie[]
+}
+
+// self one to one
+
+model Node {
+  id       Int   @id @default(autoincrement())
+  data     Int
+  parent   Node?  @relation("Link", fields: [parentId], references: [id])
+  parentId Int?   @unique
+  child    Node? @relation("Link")
 }

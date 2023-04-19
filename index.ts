@@ -1,37 +1,27 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({
+    log: ['query', 'info', 'warn', 'error']
+})
 
 async function main() {
-    const actorOne = await prisma.actor.create({
+    const node = await prisma.node.create({
         data: {
-            name: 'Jake Gyllenhaal'
-        }
-    })
-
-    const actorTwo = await prisma.actor.create({
-        data: {
-            name: 'Maggie Gyllenhaal'
-        }
-    })
-
-    const movie = await prisma.movie.create({
-        data: {
-            name: 'Donnie Darko',
-            actors: {
-                connect: [
-                    {
-                        id: 1
-                    },
-                    {
-                        id: 2
-                    }
-                ]
+            data: 3,
+            parent: {
+                connect: {
+                    id: 5
+                }
+            },
+            child: {
+                connect: {
+                    id: 7
+                }
             }
         }
     })
 
-    console.log(movie)
+    console.log(node)
 }
 
 main()

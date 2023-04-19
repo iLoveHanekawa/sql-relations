@@ -10,35 +10,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+const prisma = new client_1.PrismaClient({
+    log: ['query', 'info', 'warn', 'error']
+});
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const actorOne = yield prisma.actor.create({
+        const node = yield prisma.node.create({
             data: {
-                name: 'Jake Gyllenhaal'
-            }
-        });
-        const actorTwo = yield prisma.actor.create({
-            data: {
-                name: 'Maggie Gyllenhaal'
-            }
-        });
-        const movie = yield prisma.movie.create({
-            data: {
-                name: 'Donnie Darko',
-                actors: {
-                    connect: [
-                        {
-                            id: 1
-                        },
-                        {
-                            id: 2
-                        }
-                    ]
+                data: 3,
+                parent: {
+                    connect: {
+                        id: 5
+                    }
+                },
+                child: {
+                    connect: {
+                        id: 7
+                    }
                 }
             }
         });
-        console.log(movie);
+        console.log(node);
     });
 }
 main();
