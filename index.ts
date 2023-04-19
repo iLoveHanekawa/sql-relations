@@ -3,18 +3,43 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient()
 
 async function main() {
-    const user = await prisma.user.create({
+
+    const project = await prisma.project.create({
         data: {
-            profile: {
-                connect: {
-                    id: 2
+            name: "Nextjs"
+        }
+    })
+
+    const createProject = await prisma.employee.create({
+        data: {
+            name: 'Bob',
+            projects: {
+                create: [
+                    {
+                        project: {
+                            connect: {
+                                id: 1
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    })
+    
+    const employee = await prisma.employee.findUnique({
+        where: {
+            id: 1
+        },
+        include: {
+            projects: {
+                include: {
+                    project: true
                 }
             }
         }
     })
-
-    const users = await prisma.user.findMany()
-    console.log(users)
+    console.log(employee)
 }
 
 main()

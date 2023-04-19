@@ -13,17 +13,40 @@ const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = yield prisma.user.create({
+        const project = yield prisma.project.create({
             data: {
-                profile: {
-                    connect: {
-                        id: 2
+                name: "Nextjs"
+            }
+        });
+        const createProject = yield prisma.employee.create({
+            data: {
+                name: 'Bob',
+                projects: {
+                    create: [
+                        {
+                            project: {
+                                connect: {
+                                    id: 1
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        });
+        const employee = yield prisma.employee.findUnique({
+            where: {
+                id: 1
+            },
+            include: {
+                projects: {
+                    include: {
+                        project: true
                     }
                 }
             }
         });
-        const users = yield prisma.user.findMany();
-        console.log(users);
+        console.log(employee);
     });
 }
 main();
