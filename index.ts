@@ -3,43 +3,35 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient()
 
 async function main() {
-
-    const project = await prisma.project.create({
+    const actorOne = await prisma.actor.create({
         data: {
-            name: "Nextjs"
+            name: 'Jake Gyllenhaal'
         }
     })
 
-    const createProject = await prisma.employee.create({
+    const actorTwo = await prisma.actor.create({
         data: {
-            name: 'Bob',
-            projects: {
-                create: [
+            name: 'Maggie Gyllenhaal'
+        }
+    })
+
+    const movie = await prisma.movie.create({
+        data: {
+            name: 'Donnie Darko',
+            actors: {
+                connect: [
                     {
-                        project: {
-                            connect: {
-                                id: 1
-                            }
-                        }
+                        id: 1
+                    },
+                    {
+                        id: 2
                     }
                 ]
             }
         }
     })
-    
-    const employee = await prisma.employee.findUnique({
-        where: {
-            id: 1
-        },
-        include: {
-            projects: {
-                include: {
-                    project: true
-                }
-            }
-        }
-    })
-    console.log(employee)
+
+    console.log(movie)
 }
 
 main()

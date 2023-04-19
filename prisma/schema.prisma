@@ -55,5 +55,18 @@ model ProjectsOnEmployee {
   employeeId Int
   project    Project  @relation(fields: [projectId], references: [id])
   projectId  Int
+
   @@id([employeeId, projectId])
+}
+
+model Movie {
+  id     Int     @id @default(autoincrement())
+  name   String
+  actors Actor[]
+}
+
+model Actor {
+  id     Int     @id @default(autoincrement())
+  name   String
+  movies Movie[]
 }
