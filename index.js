@@ -15,22 +15,20 @@ const prisma = new client_1.PrismaClient({
 });
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const node = yield prisma.node.create({
-            data: {
-                data: 3,
-                parent: {
-                    connect: {
-                        id: 5
-                    }
-                },
-                child: {
-                    connect: {
-                        id: 7
+        const member = yield prisma.member.findFirst({
+            where: {
+                id: 1
+            },
+            select: {
+                name: true,
+                students: {
+                    select: {
+                        name: true
                     }
                 }
             }
         });
-        console.log(node);
+        console.log(member);
     });
 }
 main();

@@ -5,23 +5,20 @@ const prisma = new PrismaClient({
 })
 
 async function main() {
-    const node = await prisma.node.create({
-        data: {
-            data: 3,
-            parent: {
-                connect: {
-                    id: 5
-                }
-            },
-            child: {
-                connect: {
-                    id: 7
+    const member = await prisma.member.findFirst({
+        where: {
+            id: 1
+        },
+        select: {
+            name: true,
+            students: {
+                select: {
+                    name: true
                 }
             }
         }
     })
-
-    console.log(node)
+    console.log(member)
 }
 
 main()

@@ -78,7 +78,17 @@ model Actor {
 model Node {
   id       Int   @id @default(autoincrement())
   data     Int
-  parent   Node?  @relation("Link", fields: [parentId], references: [id])
-  parentId Int?   @unique
+  parent   Node? @relation("Link", fields: [parentId], references: [id])
+  parentId Int?  @unique
   child    Node? @relation("Link")
+}
+
+// self one to many
+
+model Member {
+  id        Int      @id @default(autoincrement())
+  name      String
+  teacher   Member?  @relation("School", fields: [teacherId], references: [id])
+  teacherId Int?
+  students  Member[] @relation("School")
 }
