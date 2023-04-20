@@ -15,42 +15,54 @@ const prisma = new client_1.PrismaClient({
 });
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const companyMember = yield prisma.company.create({
-            data: {
-                name: 'Arjun',
-                managers: {
-                    create: [
-                        {
-                            name: "Random name"
-                        },
-                        {
-                            name: "Lil Uzi Vert"
-                        }
-                    ]
-                },
-                employees: {
-                    create: [
-                        {
-                            name: "Future"
-                        }
-                    ]
-                }
-            },
-            select: {
-                name: true,
-                managers: {
-                    select: {
-                        name: true
-                    }
-                },
-                employees: {
-                    select: {
-                        name: true
-                    }
-                }
-            }
-        });
-        console.log(companyMember);
+        // const person = await prisma.human.create({
+        //     data: {
+        //         name: "Arjun",
+        //         friends: {
+        //             create: [
+        //                 {
+        //                     enemy: {
+        //                         create: {
+        //                             name: "Uzi"
+        //                         },
+        //                     }
+        //                 },
+        //                 {
+        //                     enemy: {
+        //                         create: {
+        //                             name: "Nudy"
+        //                         }
+        //                     }
+        //                 }
+        //             ]
+        //         },
+        //         enemies: {
+        //             create: [
+        //                 {
+        //                     friend: {
+        //                         create: {
+        //                             name: "Baby"
+        //                         }
+        //                     }
+        //                 },
+        //                 {
+        //                     friend: {
+        //                         create: {
+        //                             name: "Future"
+        //                         }
+        //                     }
+        //                 }
+        //             ]
+        //         }
+        //     },
+        //     select: {
+        //         name: true,
+        //         friends: true,
+        //         enemies: true
+        //     }
+        // })
+        const humans = yield prisma.human.deleteMany();
+        // console.log(person)
     });
 }
 main();

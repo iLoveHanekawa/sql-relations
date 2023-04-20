@@ -119,3 +119,10 @@ model FriendsOnEnemies {
 
   @@id([friendId, enemyId])
 }
+
+model Person {
+  id      Int      @id @default(autoincrement())
+  name    String
+  friends Person[] @relation("Person")
+  enemies Person[] @relation("Person")
+}

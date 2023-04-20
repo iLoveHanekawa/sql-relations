@@ -5,42 +5,56 @@ const prisma = new PrismaClient({
 })
 
 async function main() {
-    const companyMember = await prisma.company.create({
-        data: {
-            name: 'Arjun',
-            managers: {
-                create: [
-                    {
-                        name: "Random name"
-                    },
-                    {
-                        name: "Lil Uzi Vert"
-                    }
-                ]
-            },
-            employees: {
-                create: [
-                    {
-                        name: "Future"
-                    }
-                ]
-            }
-        },
-        select: {
-            name: true,
-            managers: {
-                select: {
-                    name: true
-                }
-            },
-            employees: {
-                select: {
-                    name: true
-                }
-            }
-        }
-    })
-    console.log(companyMember)
+    // const person = await prisma.human.create({
+    //     data: {
+    //         name: "Arjun",
+    //         friends: {
+    //             create: [
+    //                 {
+    //                     enemy: {
+    //                         create: {
+    //                             name: "Uzi"
+    //                         },
+    //                     }
+    //                 },
+    //                 {
+    //                     enemy: {
+    //                         create: {
+    //                             name: "Nudy"
+    //                         }
+    //                     }
+    //                 }
+    //             ]
+    //         },
+    //         enemies: {
+    //             create: [
+    //                 {
+    //                     friend: {
+    //                         create: {
+    //                             name: "Baby"
+    //                         }
+    //                     }
+    //                 },
+    //                 {
+    //                     friend: {
+    //                         create: {
+    //                             name: "Future"
+    //                         }
+    //                     }
+    //                 }
+    //             ]
+    //         }
+    //     },
+    //     select: {
+    //         name: true,
+    //         friends: true,
+    //         enemies: true
+    //     }
+    // })
+
+    const humans = await prisma.human.deleteMany()
+    // console.log(person)
+    
 }
 
 main()
