@@ -5,20 +5,42 @@ const prisma = new PrismaClient({
 })
 
 async function main() {
-    const member = await prisma.member.findFirst({
-        where: {
-            id: 1
+    const companyMember = await prisma.company.create({
+        data: {
+            name: 'Arjun',
+            managers: {
+                create: [
+                    {
+                        name: "Random name"
+                    },
+                    {
+                        name: "Lil Uzi Vert"
+                    }
+                ]
+            },
+            employees: {
+                create: [
+                    {
+                        name: "Future"
+                    }
+                ]
+            }
         },
         select: {
             name: true,
-            students: {
+            managers: {
+                select: {
+                    name: true
+                }
+            },
+            employees: {
                 select: {
                     name: true
                 }
             }
         }
     })
-    console.log(member)
+    console.log(companyMember)
 }
 
 main()

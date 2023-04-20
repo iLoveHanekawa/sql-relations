@@ -92,3 +92,12 @@ model Member {
   teacherId Int?
   students  Member[] @relation("School")
 }
+
+// self many to many
+
+model Company {
+  id        Int       @id @default(autoincrement())
+  name      String
+  employees Company[] @relation("Team")
+  managers  Company[] @relation("Team")
+}

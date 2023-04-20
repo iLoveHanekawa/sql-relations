@@ -15,20 +15,42 @@ const prisma = new client_1.PrismaClient({
 });
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const member = yield prisma.member.findFirst({
-            where: {
-                id: 1
+        const companyMember = yield prisma.company.create({
+            data: {
+                name: 'Arjun',
+                managers: {
+                    create: [
+                        {
+                            name: "Random name"
+                        },
+                        {
+                            name: "Lil Uzi Vert"
+                        }
+                    ]
+                },
+                employees: {
+                    create: [
+                        {
+                            name: "Future"
+                        }
+                    ]
+                }
             },
             select: {
                 name: true,
-                students: {
+                managers: {
+                    select: {
+                        name: true
+                    }
+                },
+                employees: {
                     select: {
                         name: true
                     }
                 }
             }
         });
-        console.log(member);
+        console.log(companyMember);
     });
 }
 main();
