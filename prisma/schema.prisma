@@ -101,3 +101,21 @@ model Company {
   employees Company[] @relation("Team")
   managers  Company[] @relation("Team")
 }
+
+// self many to many explicit
+
+model Human {
+  id      Int                @id @default(autoincrement())
+  name    String
+  friends FriendsOnEnemies[] @relation("Friend")
+  enemies FriendsOnEnemies[] @relation("Enemy")
+}
+
+model FriendsOnEnemies {
+  friend   Human @relation("Friend", fields: [friendId], references: [id])
+  friendId Int
+  enemy    Human @relation("Enemy", fields: [enemyId], references: [id])
+  enemyId  Int
+
+  @@id([friendId, enemyId])
+}
