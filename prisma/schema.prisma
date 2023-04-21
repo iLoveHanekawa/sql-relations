@@ -103,6 +103,7 @@ model Company {
 }
 
 // self many to many explicit
+// join table must be deleted first
 
 model Human {
   id      Int                @id @default(autoincrement())
@@ -116,9 +117,10 @@ model FriendsOnEnemies {
   friendId Int
   enemy    Human @relation("Enemy", fields: [enemyId], references: [id])
   enemyId  Int
-
   @@id([friendId, enemyId])
 }
+
+
 
 model Person {
   id      Int      @id @default(autoincrement())

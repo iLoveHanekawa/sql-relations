@@ -5,56 +5,26 @@ const prisma = new PrismaClient({
 })
 
 async function main() {
-    // const person = await prisma.human.create({
-    //     data: {
-    //         name: "Arjun",
-    //         friends: {
-    //             create: [
-    //                 {
-    //                     enemy: {
-    //                         create: {
-    //                             name: "Uzi"
-    //                         },
-    //                     }
-    //                 },
-    //                 {
-    //                     enemy: {
-    //                         create: {
-    //                             name: "Nudy"
-    //                         }
-    //                     }
-    //                 }
-    //             ]
-    //         },
-    //         enemies: {
-    //             create: [
-    //                 {
-    //                     friend: {
-    //                         create: {
-    //                             name: "Baby"
-    //                         }
-    //                     }
-    //                 },
-    //                 {
-    //                     friend: {
-    //                         create: {
-    //                             name: "Future"
-    //                         }
-    //                     }
-    //                 }
-    //             ]
-    //         }
-    //     },
-    //     select: {
-    //         name: true,
-    //         friends: true,
-    //         enemies: true
-    //     }
-    // })
 
-    const humans = await prisma.human.deleteMany()
-    // console.log(person)
-    
+    const employee = await prisma.employee.findUnique({
+        where: {
+            id: 1
+        },
+        select: {
+            name: true,
+            projects: {
+                select: {
+                    project: {
+                        select: {
+                            name: true
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+    console.log(employee)
 }
 
 main()

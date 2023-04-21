@@ -15,54 +15,24 @@ const prisma = new client_1.PrismaClient({
 });
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        // const person = await prisma.human.create({
-        //     data: {
-        //         name: "Arjun",
-        //         friends: {
-        //             create: [
-        //                 {
-        //                     enemy: {
-        //                         create: {
-        //                             name: "Uzi"
-        //                         },
-        //                     }
-        //                 },
-        //                 {
-        //                     enemy: {
-        //                         create: {
-        //                             name: "Nudy"
-        //                         }
-        //                     }
-        //                 }
-        //             ]
-        //         },
-        //         enemies: {
-        //             create: [
-        //                 {
-        //                     friend: {
-        //                         create: {
-        //                             name: "Baby"
-        //                         }
-        //                     }
-        //                 },
-        //                 {
-        //                     friend: {
-        //                         create: {
-        //                             name: "Future"
-        //                         }
-        //                     }
-        //                 }
-        //             ]
-        //         }
-        //     },
-        //     select: {
-        //         name: true,
-        //         friends: true,
-        //         enemies: true
-        //     }
-        // })
-        const humans = yield prisma.human.deleteMany();
-        // console.log(person)
+        const employee = yield prisma.employee.findUnique({
+            where: {
+                id: 1
+            },
+            select: {
+                name: true,
+                projects: {
+                    select: {
+                        project: {
+                            select: {
+                                name: true
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        console.log(employee);
     });
 }
 main();
