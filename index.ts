@@ -5,26 +5,32 @@ const prisma = new PrismaClient({
 })
 
 async function main() {
-
-    const employee = await prisma.employee.findUnique({
+    const account = await prisma.instagram.findMany({
         where: {
-            id: 1
+            id: 2
         },
         select: {
+            id: true,
             name: true,
-            projects: {
+            alt: {
                 select: {
-                    project: {
-                        select: {
-                            name: true
-                        }
-                    }
+                    name: true
+                }
+            },
+            followedBy: {
+                select: {
+                    name: true
+                }
+            },
+            following: {
+                select: {
+                    name: true
                 }
             }
         }
     })
 
-    console.log(employee)
+    console.log(account[0].followedBy)
 }
 
 main()

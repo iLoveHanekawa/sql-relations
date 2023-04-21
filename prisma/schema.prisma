@@ -103,7 +103,7 @@ model Company {
 }
 
 // self many to many explicit
-// join table must be deleted first
+// join table must be deleted first for delete many to work on any model
 
 model Human {
   id      Int                @id @default(autoincrement())
@@ -117,14 +117,27 @@ model FriendsOnEnemies {
   friendId Int
   enemy    Human @relation("Enemy", fields: [enemyId], references: [id])
   enemyId  Int
+
   @@id([friendId, enemyId])
 }
 
-
+// self many to many implicit
 
 model Person {
   id      Int      @id @default(autoincrement())
   name    String
   friends Person[] @relation("Person")
   enemies Person[] @relation("Person")
+}
+
+// multiple self relations
+
+model Instagram {
+  id         Int         @id @default(autoincrement())
+  name       String
+  alt        Instagram?  @relation("accounts", fields: [altId], references: [id])
+  altId      Int?        @unique
+  main       Instagram?  @relation("accounts")
+  following  Instagram[] @relation("follows")
+  followedBy Instagram[] @relation("follows")
 }

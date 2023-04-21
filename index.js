@@ -15,24 +15,31 @@ const prisma = new client_1.PrismaClient({
 });
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const employee = yield prisma.employee.findUnique({
+        const account = yield prisma.instagram.findMany({
             where: {
-                id: 1
+                id: 2
             },
             select: {
+                id: true,
                 name: true,
-                projects: {
+                alt: {
                     select: {
-                        project: {
-                            select: {
-                                name: true
-                            }
-                        }
+                        name: true
+                    }
+                },
+                followedBy: {
+                    select: {
+                        name: true
+                    }
+                },
+                following: {
+                    select: {
+                        name: true
                     }
                 }
             }
         });
-        console.log(employee);
+        console.log(account[0].followedBy);
     });
 }
 main();
